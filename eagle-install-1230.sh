@@ -52,7 +52,10 @@ echo -e "\n--- Installing Python 3 + pip3 --"
 sudo apt-get install git python3 python3-pip build-essential wget python3-dev python3-venv python3-wheel libxslt-dev libzip-dev libldap2-dev libsasl2-dev python3-setuptools node-less libpng12-0 gdebi -y
 
 echo -e "\n---- Install python packages/requirements ----"
-sudo pip3 install -r https://github.com/odoo/odoo/raw/12.0/requirements.txt
+sudo pip3 install -r https://github.com/ShaheenHossain/requirements_12/raw/master/requirements.txt
+
+#https://github.com/odoo/odoo/raw/12.0/requirements.txt
+
 
 echo -e "\n---- Installing nodeJS NPM and rtlcss for LTR support ----"
 sudo apt-get install nodejs npm
