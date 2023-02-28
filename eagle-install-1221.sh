@@ -1,8 +1,8 @@
 
-OE_USER="eagle1221"
+OE_USER="eagle1222"
 OE_HOME="/$OE_USER"
 OE_HOME_EXT="/$OE_USER/${OE_USER}-server"
-OE_PORT="8021"
+OE_PORT="8022"
 OE_VERSION="master"
 # set the superadmin password
 OE_SUPERADMIN="admin"
@@ -46,7 +46,7 @@ sudo apt-get install nodejs npm
 sudo npm install -g rtlcss
 
 echo -e "\n---- Create Eagle ERP system user ----"
-sudo adduser --system --quiet --shell=/bin/bash --home=$OE_HOME --gecos 'eagle1221' --group $OE_USER
+sudo adduser --system --quiet --shell=/bin/bash --home=$OE_HOME --gecos 'eagle1222' --group $OE_USER
 #The user should also be added to the sudo'ers group.
 sudo adduser $OE_USER sudo
 
