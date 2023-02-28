@@ -1,41 +1,41 @@
 #!/bin/bash
 ################################################################################
-# Script for installing Odoo V9 on Ubuntu 14.04 LTS (could be used for other version too)
+# Script for installing Eagle ERP on Ubuntu 20.04 LTS (could be used for other version too)
 # Author: Yenthe Van Ginneken
 #-------------------------------------------------------------------------------
-# This script will install Odoo on your Ubuntu 14.04 server. It can install multiple Odoo instances
+# This script will install Eagle ERP on your Ubuntu 20.04 server. It can install multiple Eagle ERP instances
 # in one Ubuntu because of the different xmlrpc_ports
 #-------------------------------------------------------------------------------
 # Make a new file:
-# sudo nano odoo-install.sh
+# sudo nano eagle-install.sh
 # Place this content in it and then make the file executable:
-# sudo chmod +x odoo-install.sh
-# Execute the script to install Odoo:
-# ./odoo-install
+# sudo chmod +x eagle-install.sh
+# Execute the script to install Eagle:
+# ./eagle-install
 ################################################################################
  
 ##fixed parameters
-#odoo
-OE_USER="odoo"
+#eagle
+OE_USER="eagle"
 OE_HOME="/$OE_USER"
 OE_HOME_EXT="/$OE_USER/${OE_USER}-server"
-#The default port where this Odoo instance will run under (provided you use the command -c in the terminal)
+#The default port where this eagle instance will run under (provided you use the command -c in the terminal)
 #Set to true if you want to install it, false if you don't need it or have it already installed.
 INSTALL_WKHTMLTOPDF="True"
 ##
 ###  WKHTMLTOPDF download links
 ## === Ubuntu Trusty x64 & x32 === (for other distributions please replace these two links,
 ## in order to have correct version of wkhtmltox installed, for a danger note refer to 
-## https://www.odoo.com/documentation/8.0/setup/install.html#deb ):
+
 WKHTMLTOX_X64=https://downloads.wkhtmltopdf.org/0.12/0.12.1/wkhtmltox-0.12.1_linux-trusty-amd64.deb
 WKHTMLTOX_X32=https://downloads.wkhtmltopdf.org/0.12/0.12.1/wkhtmltox-0.12.1_linux-trusty-i386.deb
 
 
-#Set the default Odoo port (you still have to use -c /etc/odoo-server.conf for example to use this.)
+#Set the default eagle port (you still have to use -c /etc/eagle-server.conf for example to use this.)
 OE_PORT="8069"
 
-#Choose the Odoo version which you want to install. For example: 9.0, 8.0, 7.0 or saas-6. When using 'trunk' the master version will be installed.
-#IMPORTANT! This script contains extra libraries that are specifically needed for Odoo 9.0
+#Choose the eagle version which you want to install. For example: 9.0, 8.0, 7.0 or saas-6. When using 'trunk' the master version will be installed.
+#IMPORTANT! This script contains extra libraries that are specifically needed for eagle erp
 OE_VERSION="9.0"
 
 #set the superadmin password
@@ -62,7 +62,7 @@ apt-get update && apt-get upgrade -y
 echo -e "\n---- Install PostgreSQL Server ----"
 apt-get install postgresql -y
 
-echo -e "\n---- Creating the ODOO PostgreSQL User  ----"
+echo -e "\n---- Creating the eagle PostgreSQL User  ----"
 su - postgres -c "createuser -s $OE_USER" 2> /dev/null || true
 
 #--------------------------------------------------
@@ -86,7 +86,7 @@ apt-get install python-gevent -y
 # Install Wkhtmltopdf if needed
 #--------------------------------------------------
 if [ $INSTALL_WKHTMLTOPDF = "True" ]; then
-  echo -e "\n---- Install wkhtml and place shortcuts on correct place for ODOO 9 ----"
+  echo -e "\n---- Install wkhtml and place shortcuts on correct place for eagle  ----"
   #pick up correct one from x64 & x32 versions:
   if [ "`getconf LONG_BIT`" == "64" ];then
       _url=$WKHTMLTOX_X64
@@ -101,7 +101,7 @@ else
   echo "Wkhtmltopdf isn't installed due to the choice of the user!"
 fi
 	
-echo -e "\n---- Create ODOO system user ----"
+echo -e "\n---- Create eagle system user ----"
 adduser --system --group --quiet --home=$OE_HOME  $OE_USER
 
 echo -e "\n---- Create Log directory ----"
@@ -109,10 +109,10 @@ mkdir /var/log/$OE_USER
 chown $OE_USER:$OE_USER /var/log/$OE_USER
 
 #--------------------------------------------------
-# Install ODOO
+# Install eagle
 #--------------------------------------------------
-echo -e "\n==== Installing ODOO Server ===="
-git clone --depth 1 --branch $OE_VERSION https://www.github.com/odoo/odoo $OE_HOME_EXT/
+echo -e "\n==== Installing eagle Server ===="
+git clone --depth 1 --branch $OE_VERSION https://www.github.com/eagle12c1.2/eagle12c1.2 $OE_HOME_EXT/
 
 echo -e "\n---- Create custom module directory ----"
 mkdir -p $OE_HOME/custom/addons
@@ -137,7 +137,7 @@ su root -c "echo 'sudo -u $OE_USER $OE_HOME_EXT/openerp-server --config=/etc/${O
 chmod 755 $OE_HOME_EXT/start.sh
 
 #--------------------------------------------------
-# Adding ODOO as a deamon (initscript)
+# Adding eagle as a deamon (initscript)
 #--------------------------------------------------
 
 echo -e "* Create init file"
@@ -152,14 +152,14 @@ cat <<EOF > ~/$OE_CONFIG
 # Default-Start: 2 3 4 5
 # Default-Stop: 0 1 6
 # Short-Description: Enterprise Business Applications
-# Description: ODOO Business Applications
+# Description: eagle Business Applications
 ### END INIT INFO
 PATH=/bin:/sbin:/usr/bin
 DAEMON=$OE_HOME_EXT/openerp-server
 NAME=$OE_CONFIG
 DESC=$OE_CONFIG
 
-# Specify the user name (Default: odoo).
+# Specify the user name (Default: eagle).
 USER=$OE_USER
 
 # Specify an alternate config file (Default: /etc/openerp-server.conf).
@@ -222,22 +222,22 @@ chown root: /etc/init.d/$OE_CONFIG
 echo -e "* Change default xmlrpc port"
 su root -c "echo 'xmlrpc_port = $OE_PORT' >> /etc/${OE_CONFIG}.conf"
 
-echo -e "* Start ODOO on Startup"
+echo -e "* Start eagle on Startup"
 update-rc.d $OE_CONFIG defaults
 
-echo -e "* Starting Odoo Service"
+echo -e "* Starting eagle Service"
 su root -c "/etc/init.d/$OE_CONFIG start"
 
 cat << EOF
 -----------------------------------------------------------
-Done! The Odoo server is up and running. Specifications:
+Done! The eagle server is up and running. Specifications:
 Port: $OE_PORT
 User service: $OE_USER
 User PostgreSQL: $OE_USER
 Code location: $OE_USER
 Addons folder: $OE_USER/$OE_CONFIG/addons/
-Start Odoo service: sudo service $OE_CONFIG start
-Stop Odoo service: sudo service $OE_CONFIG stop
-Restart Odoo service: sudo service $OE_CONFIG restart
+Start eagle service: sudo service $OE_CONFIG start
+Stop eagle service: sudo service $OE_CONFIG stop
+Restart eagle service: sudo service $OE_CONFIG restart
 -----------------------------------------------------------
 EOF
