@@ -1,8 +1,8 @@
-# [Odoo](https://www.odoo.com "Odoo's Homepage") Install Script
+# [Eagle ERP](https://www.eagle-erp.com "Eagle ERP's Homepage") Install Script
 
-This script is based on the install script from André Schenkels (https://github.com/aschenkels-ictstudio/openerp-install-scripts)
+This script is based on the install script from André Schenkels (https://github.com/ShaheenHossain/eagle_erp_install_script/edit/eagleerp1221c-scripts)
 but goes a bit further and has been improved. This script will also give you the ability to define an xmlrpc_port in the .conf file that is generated under /etc/
-This script can be safely used in a multi-odoo code base server because the default Odoo port is changed BEFORE the Odoo is started.
+This script can be safely used in a multi-Eagle ERP code base server because the default Eagle ERP port is changed BEFORE the Eagle ERP is started.
 
 ## Installation procedure
 
@@ -33,13 +33,13 @@ sudo su - postgres -c "createuser -s eagle1230"
 sudo wget https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox_0.12.5-1.bionic_amd64.deb
 sudo apt install ./wkhtmltox_0.12.5-1.bionic_amd64.deb
 
-sudo su - eagle1230
+sudo su - eagle1221
 
-git clone https://github.com/ShaheenHossain/niir_websys_odoo_12ent --branch master /eagle1230/eagle130-server
+git clone https://github.com/ShaheenHossain/eagle12c1.2 --branch master /eagle1221/eagle1211-server
 
-cd /eagle1230
+cd /eagle1221
 
-python3 -m venv eagle1230-venv
+python3 -m venv eagle1221-venv
 
 source eagle1230-venv/bin/activate
 
@@ -63,12 +63,12 @@ db_port = False
 db_user = eagle1230
 xmlrpc_port = 8030
 db_password = False
-addons_path = /eagle1230/eagle-server/odoo/addons,/eagle1230/eagle-server/custom/addons
+addons_path = /eagle1230/eagle-server/eagle/addons,/eagle1230/eagle-server/custom/addons
 
 sudo nano /etc/systemd/system/eagle1230.service
 
 [Unit]
-Description=Odoo
+Description=Eagle
 Requires=postgresql.service
 After=network.target postgresql.service
 
@@ -78,7 +78,7 @@ SyslogIdentifier=eagle1230
 PermissionsStartOnly=true
 User=eagle1230
 Group=eagle1230
-ExecStart=/eagle1230/eagle1230-server/eagle1230-venv/bin/python3 /eagle1230/eagle1230-server/odoo-bin -c /etc/eagle1230-server.conf
+ExecStart=/eagle1230/eagle1230-server/eagle1230-venv/bin/python3 /eagle1230/eagle1230-server/eagle-bin -c /etc/eagle1230-server.conf
 StandardOutput=journal+console
 
 [Install]
