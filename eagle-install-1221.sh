@@ -40,7 +40,7 @@ sudo apt-get install git python3 python3-pip build-essential wget python3-dev py
 
 echo -e "\n---- Install python packages/requirements ----"
 
-sudo pip3 install -r https://github.com/eagleerp/eagle_erp_1.2c/requirements.txt
+sudo pip3 install -r https://github.com/eagleerp/eagle_erp_1.2c/master/requirements.txt
 
 echo -e "\n---- Installing nodeJS NPM and rtlcss for LTR support ----"
 sudo apt-get install nodejs npm
