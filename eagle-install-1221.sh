@@ -39,7 +39,8 @@ echo -e "\n--- Installing Python 3 + pip3 --"
 sudo apt-get install git python3 python3-pip build-essential wget python3-dev python3-venv python3-wheel libxslt-dev libzip-dev libldap2-dev libsasl2-dev python3-setuptools node-less gdebi wkhtmltopdf -y
 
 echo -e "\n---- Install python packages/requirements ----"
-sudo pip3 install -r https://raw.githubusercontent.com/ShaheenHossain/eagle12c1.2/master/requirements.txt
+
+sudo pip3 install -r https://github.com/eagleerp/eagle_erp_1.2c/requirements.txt
 
 echo -e "\n---- Installing nodeJS NPM and rtlcss for LTR support ----"
 sudo apt-get install nodejs npm
@@ -58,7 +59,9 @@ sudo chown $OE_USER:$OE_USER /var/log/$OE_USER
 # Install Eagle ERP
 #--------------------------------------------------
 echo -e "\n==== Installing Eagle ERP Server ===="
-sudo git clone --depth 1 --branch $OE_VERSION https://github.com/ShaheenHossain/eagle12c1.2 $OE_HOME_EXT/
+https://github.com/eagleerp/eagle_erp_1.2c
+
+sudo git clone --depth 1 --branch $OE_VERSION https://github.com/eagleerp/eagle_erp_1.2c $OE_HOME_EXT/
 
 echo -e "\n---- Create custom module directory ----"
 sudo su $OE_USER -c "mkdir $OE_HOME/custom"
