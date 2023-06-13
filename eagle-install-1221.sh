@@ -58,8 +58,6 @@ sudo chown $OE_USER:$OE_USER /var/log/$OE_USER
 # Install Eagle ERP
 #--------------------------------------------------
 echo -e "\n==== Installing Eagle ERP Server ===="
-https://github.com/eagleerp/eagle_erp_1.2c
-
 sudo git clone --depth 1 --branch $OE_VERSION https://github.com/eagleerp/eagle_erp_1.2c $OE_HOME_EXT/
 
 echo -e "\n---- Create custom module directory ----"
