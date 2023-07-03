@@ -112,7 +112,7 @@ chown $OE_USER:$OE_USER /var/log/$OE_USER
 # Install eagle
 #--------------------------------------------------
 echo -e "\n==== Installing eagle Server ===="
-git clone --depth 1 --branch $OE_VERSION https://www.github.com/eagle12c1.2/eagle12c1.2 $OE_HOME_EXT/
+git clone --depth 1 --branch $OE_VERSION https://www.github.com/eagle12c1.2/eagle1.2c_030723 $OE_HOME_EXT/
 
 echo -e "\n---- Create custom module directory ----"
 mkdir -p $OE_HOME/custom/addons
